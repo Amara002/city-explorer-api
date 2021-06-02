@@ -1,11 +1,11 @@
 'use strict'
 
-
+require('dotenv').config();
 const express = require('express');
 const cityData = require('./data/weather.json')
 const server = express();
 
-const PORT = 3001;
+const PORT = 3001 || process.env.PORT;
 
 // server.get('/weather',(req,res)=>{
 // console.log(cityData);
@@ -31,7 +31,7 @@ server.get('/weather',(req,res)=>{
 
         
         let cityNames = cityData.find(item=>{
-            if (item.city_name == searchQuery && item.lon == lon && item.lat == lat) {
+            if (item.city_name.toLocaleLowerCase() == searchQuery.toLocaleLowerCase() && item.lon == lon && item.lat == lat) {
                 
                 return item;
             }
