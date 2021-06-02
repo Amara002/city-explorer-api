@@ -5,7 +5,7 @@ const express = require('express');
 const cityData = require('./data/weather.json')
 const server = express();
 
-const PORT = 3001 || process.env.PORT;
+const PORT = process.env.PORT || 3001;
 
 // server.get('/weather',(req,res)=>{
 // console.log(cityData);
@@ -21,7 +21,7 @@ const PORT = 3001 || process.env.PORT;
 
 // })
 server.get('/',(req,res)=>{
-    res.send('amara')
+    res.send(amara)
 })
 
 server.get('/weather',(req,res)=>{
