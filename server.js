@@ -20,6 +20,9 @@ const PORT = 3001 || process.env.PORT;
 
 
 // })
+server.get('/',(req,res)=>{
+    res.send('amara')
+})
 
 server.get('/weather',(req,res)=>{
     console.log(cityData);
