@@ -25,7 +25,7 @@ server.get('/',(req,res)=>{
 })
 
 server.get('/weather',(req,res)=>{
-    console.log(cityData);
+    // console.log(cityData);
 
     // let weatherNameData=req.query.weatherName
     let {lon, lat, searchQuery} = req.query;
@@ -39,11 +39,11 @@ server.get('/weather',(req,res)=>{
                 return item;
             }
         })
-        
+        console.log('aaa',cityNames);
         let weatherData = cityNames.data.map(item=>{
             return new Forecast(item,lon,lat,searchQuery)
         })
-        
+        console.log('weather', weatherData);
         res.send(weatherData);
     }
     catch(error) {
