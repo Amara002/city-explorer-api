@@ -21,7 +21,7 @@ const PORT = process.env.PORT || 3001;
 
 // })
 server.get('/',(req,res)=>{
-    res.send(amara)
+    res.send('amara')
 })
 
 server.get('/weather',(req,res)=>{
