@@ -30,7 +30,7 @@ function locationHandler(req, res) {
         .then(result => {
             console.log('inside promise', result.data.city_name)
             const weatherData = result.data.data.map(itemW => {
-                return new weather(itemW);
+                return new weather(itemW, searchQuery);
             })
             res.send(weatherData);
 
@@ -50,9 +50,10 @@ function locationHandler(req, res) {
 
 }
 class weather {
-    constructor(item) {
+    constructor(item, city) {
         this.description = item.weather.description;
         this.date = item.valid_date;
+        this.city_name = item.city;
     }
 }
 server.get('/movies', movieHandler)
