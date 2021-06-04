@@ -29,12 +29,13 @@ server.get('/weather',(req,res)=>{
 
     // let weatherNameData=req.query.weatherName
     let {lon, lat, searchQuery} = req.query;
-
+     let latData = lat.split('.')[0];
+     let lonData = lon.split('.')[0];
     try {
 
         
         let cityNames = cityData.find(item=>{
-            if (item.city_name.toLocaleLowerCase() == searchQuery.toLocaleLowerCase() && item.lon == lon && item.lat == lat) {
+            if (item.city_name.toLocaleLowerCase() == searchQuery.toLocaleLowerCase() && item.lon.split('.')[0] == lonData && item.lat.split('.') == latData) {
                 
                 return item;
             }
