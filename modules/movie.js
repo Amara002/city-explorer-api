@@ -2,28 +2,37 @@ const axios = require('axios');
 const keyMovie = process.env.MOVIE_API_KEY;
 
 
-
+let in_memory = {};
 function movieHandler(req, res) {
     // let keyMovie = process.env.MOVIE_API_KEY;
     let movie = req.query.searchQuery;
 
     let urlMovie = `https://api.themoviedb.org/3/search/movie?api_key=${keyMovie}&query=${movie}`
      console.log(urlMovie);
-    axios
-        .get(urlMovie)
-        .then(resultMovie => {
-            console.log('movie>>>>>>>>>', resultMovie.data.results)
+
+     if (in_memory[movie] !== undefined){
+         console.log('movie>>>>>', in_memory[movie]);
+         res.send(in_memory[movie])
+     }else{
+        
+         axios
+         .get(urlMovie)
+         .then(resultMovie => {
+             console.log('movie>>>>>>>>>', resultMovie.data.results)
             const movieData = resultMovie.data.results.map(itemM => {
                 return new Movie(itemM);
-
+                
             })
+            in_memory[movie] = movieData;
+            console.log('insertMovie>>>>>', in_memory[movie]);
             res.send(movieData);
-
+            
         })
         .catch(err => {
             res.status(500).send(`error in getting the movie data ==> ${err}`);
         })
-
+        
+    }
 }
 class Movie {
     constructor(item) {
