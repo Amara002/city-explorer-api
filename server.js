@@ -4,6 +4,8 @@ require('dotenv').config();
 const express = require('express');
 const cityData = require('./data/weather.json')
 const server = express();
+const cors = require('cors'); 
+server.use(cors());
 
 const PORT = process.env.PORT || 3001;
 
@@ -28,21 +30,18 @@ server.get('/weather',(req,res)=>{
     // console.log(cityData);
 
     // let weatherNameData=req.query.weatherName
-    let {lon, lat, searchQuery} = req.query;
-     let latData = lat.split('.')[0];
-     let lonData = lon.split('.')[0];
+    let {searchQuery} = req.query;
     try {
 
         
         let cityNames = cityData.find(item=>{
-            if (item.city_name.toLocaleLowerCase() == searchQuery.toLocaleLowerCase() && item.lon.split('.')[0] == lonData && item.lat.split('.') == latData) {
-                
+            if (item.city_name.toLowerCase() == searchQuery.toLowerCase()) {
                 return item;
             }
         })
         console.log('aaa',cityNames);
         let weatherData = cityNames.data.map(item=>{
-            return new Forecast(item,lon,lat,searchQuery)
+            return new Forecast(item,searchQuery)
         })
         console.log('weather', weatherData);
         res.send(weatherData);
@@ -54,12 +53,10 @@ server.get('/weather',(req,res)=>{
     })
     
 class Forecast {
-    constructor(item,lon,lat,city_name){
+    constructor(item,city_name){
 
         this.description = item.weather.description;
         this.date = item.valid_date;
-        this.lon = lon;
-        this.lat = lat;
         this.city_name = city_name;
     }
 
