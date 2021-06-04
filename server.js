@@ -61,7 +61,7 @@ function movieHandler(req, res) {
     let movie = req.query.searchQuery;
 
     let urlMovie = `https://api.themoviedb.org/3/search/movie?api_key=${keyMovie}&query=${movie}`
-
+     console.log(urlMovie);
     axios
         .get(urlMovie)
         .then(resultMovie => {
