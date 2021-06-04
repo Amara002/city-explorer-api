@@ -53,7 +53,7 @@ class weather {
     constructor(item, city) {
         this.description = item.weather.description;
         this.date = item.valid_date;
-        this.city_name = item.city;
+        this.city_name = city;
     }
 }
 server.get('/movies', movieHandler)
